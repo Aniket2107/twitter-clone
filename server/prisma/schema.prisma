@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  name       String?
+  password   String
+  tweets     Tweet[]
+  profile    Profile?
+  likedTweet LikedTweet[]
+  following  Following[]
+  comment    Comment[]
+}
+
+model Tweet {
+  id        Int          @id @default(autoincrement())
+  createdAt DateTime     @default(now())
+  content   String
+  img       String
+  likes     LikedTweet[]
+  author    User         @relation(fields: [authorId], references: [id])
+  authorId  Int
+  comments  Comment[]
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  bio       String?
+  location  String?
+  website   String?
+  avatar    String?
+  userId    Int?     @unique
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model LikedTweet {
+  id      Int      @id @default(autoincrement())
+  tweet   Tweet    @relation(fields: [tweetId], references: [id])
+  likedAt DateTime @default(now())
+  userId  Int?
+  user    User?    @relation(fields: [userId], references: [id])
+  tweetId Int
+
+}
+
+model Following {
+  id       Int    @id @default(autoincrement())
+  name     String
+  avatar   String
+  followId Int
+  user     User?  @relation(fields: [userId], references: [id])
+  userId   Int?
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  content   String?
+  tweet     Tweet?    @relation(fields: [tweetId], references: [id])
+  tweetId   Int?
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    Int?
+  replies   Comment[] @relation("CommentToComment")
+  comment   Comment?  @relation("CommentToComment", fields: [commentId], references: [id])
+  commentId Int?
+}

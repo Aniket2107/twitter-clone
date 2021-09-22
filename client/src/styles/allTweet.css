@@ -1,0 +1,48 @@
+.tweet-header {
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr 1.5fr 7.5fr;
+  margin-left: 10px;
+}
+
+.tweet-container {
+  border-bottom: 1px solid var(--accent);
+  margin-top: 10px;
+}
+
+p {
+  margin-left: 10px;
+}
+
+.tweet-img {
+  width: 350px;
+  height: 200px;
+  border-radius: 5%;
+  margin: 0 0 10px 30px;
+}
+
+.tweet-content {
+  margin: 12px 0 10px 30px;
+  font-size: 18px;
+}
+
+.date-time {
+  margin-top: 5px;
+  font-size: 12px;
+  width: 100px;
+  position: absolute;
+  right: 0;
+  /* margin: 10px 0 10px 0; */
+}
+
+.name {
+  width: 120px;
+  /* margin-top: 0px; */
+  margin: 10px 0 10px 10px;
+}
+
+.likes {
+  display: grid;
+  grid-template-columns: 1fr 1fr 10fr;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}

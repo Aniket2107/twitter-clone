@@ -1,0 +1,93 @@
+.tweet-button {
+  width: 25%;
+  justify-self: end;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+  font-size: 15px;
+  border: 1px solid var(--main-color);
+}
+.tweet-button:hover {
+  background-color: white;
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+}
+.tweet-button:focus {
+  outline: none;
+}
+
+textarea {
+  border: none;
+  font-size: 18px;
+}
+
+textarea:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.exit {
+  color: var(--main-color);
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+.header {
+  border-bottom: 1px solid var(--accent);
+  width: 110%;
+  padding: 0;
+  margin-left: -20px;
+  margin-top: 10px;
+}
+.footer {
+  border-bottom: 1px solid var(--accent);
+  width: 100%;
+  padding: 0;
+
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.tweetBox {
+  padding-bottom: 10px;
+  border-bottom: 8px solid var(--twitter-background);
+  padding-right: 10px;
+}
+
+.tweetBox > Form {
+  display: flex;
+  flex-direction: column;
+}
+
+.tweetBox__input {
+  padding: 20px;
+  display: flex;
+}
+
+.tweetBox__input > Field {
+  flex: 1;
+  margin-left: 20px;
+  font-size: 20px;
+  border: none;
+}
+
+.tweetBox__imageInput {
+  border: none;
+  padding: 10px;
+}
+
+.tweetBox__tweetButton {
+  background-color: #50b7f5 !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 900 !important;
+  text-transform: inherit !important;
+  border-radius: 30px !important;
+  width: 80px;
+  height: 40px !important;
+  margin-top: 20px !important;
+  margin-left: auto !important;
+}

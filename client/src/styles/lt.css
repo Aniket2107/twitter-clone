@@ -1,0 +1,32 @@
+.lt-header {
+  margin: 30px 0 30px 0;
+}
+
+.lt-container {
+  border: 1px solid var(--accent);
+  margin: 10px;
+}
+
+.lt-bx1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lt-bx1-1 {
+  display: flex;
+}
+
+.lt-avatar {
+  margin: 10px;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.lt-img {
+  width: 350px;
+  height: 200px;
+  border-radius: 5%;
+  margin: 0 0 10px 30px;
+}

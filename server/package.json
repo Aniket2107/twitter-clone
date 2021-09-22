@@ -1,0 +1,33 @@
+{
+  "name": "typescript-graphql",
+  "scripts": {
+    "start": "ts-node src/server",
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server",
+    "seed": "ts-node prisma/seed"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "dependencies": {
+    "@graphql-tools/schema": "^8.2.0",
+    "@prisma/client": "3.0.2",
+    "@types/graphql": "14.5.0",
+    "@types/node": "14.17.15",
+    "@types/ws": "7.4.7",
+    "apollo-server": "^3.3.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "graphql": "15.5.3",
+    "graphql-scalars": "1.10.1",
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "3.0.2",
+    "ts-node": "10.2.1",
+    "ts-node-dev": "1.1.8",
+    "typescript": "4.4.3"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+}
