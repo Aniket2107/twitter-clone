@@ -1,92 +1,66 @@
-import React from 'react'
-
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   ApolloClient,
   ApolloProvider,
   HttpLink,
   InMemoryCache,
-} from '@apollo/client'
+} from "@apollo/client";
 
-import './App.css'
-import { setContext } from 'apollo-link-context'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import IsAuthenticated from './components/IsAuthenticated'
-import Landing from './components/Landing'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Profile from './pages/Profile'
-import Home from './pages/Home'
-import Tweeet from './pages/Tweeet'
-import User from './pages/User'
-import FollowingPg from './pages/FollowingPg'
-import LikedTweetsPg from './pages/LikedTweetsPg'
+import { setContext } from "apollo-link-context";
+
+import "./App.css";
+import PrivateRoute from "./helpers/PrivateRoute";
+import Following from "./pages/following/Following";
+import Home from "./pages/home/Home";
+import Landing from "./pages/Landing";
+import LikedTweet from "./pages/likedtweet/LikedTweet";
+import Login from "./pages/login/Login";
+import Profile from "./pages/profile/Profile";
+import Register from "./pages/register/Register";
+import User from "./pages/user/User";
+import Tweeet from "./pages/tweeet/Tweeet";
+import Search from "./pages/search/Search";
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_BACKEND_URL,
-})
+});
 const authLink = setContext(async (req, { headers }) => {
-  const token = localStorage.getItem('twitter-token')
+  const token = await localStorage.getItem("twitter-token");
 
   return {
     ...headers,
     headers: {
       Authorization: token ? `Bearer ${token}` : null,
     },
-  }
-})
+  };
+});
 
-const link = authLink.concat(httpLink as any)
+const link = authLink.concat(httpLink as any);
 const client = new ApolloClient({
   link: link as any,
   cache: new InMemoryCache(),
-})
+});
 
 function App() {
   return (
     <ApolloProvider client={client}>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact>
-            <Landing />
-          </Route>
+          <Route path="/" exact component={Landing} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
 
-          <Route path="/login">
-            <Login />
-          </Route>
-
-          <Route path="/signup">
-            <Register />
-          </Route>
-
-          <IsAuthenticated>
-            <Route path="/home">
-              <Home />
-            </Route>
-
-            <Route path="/profile">
-              <Profile />
-            </Route>
-
-            <Route path="/tweet/:id" exact>
-              <Tweeet />
-            </Route>
-
-            <Route path="/user/:id" exact>
-              <User />
-            </Route>
-
-            <Route path="/following">
-              <FollowingPg />
-            </Route>
-
-            <Route path="/liked-tweets">
-              <LikedTweetsPg />
-            </Route>
-          </IsAuthenticated>
+          <PrivateRoute path="/home" exact component={Home} />
+          <PrivateRoute path="/profile" exact component={Profile} />
+          <PrivateRoute path="/following" exact component={Following} />
+          <PrivateRoute path="/liked-tweets" exact component={LikedTweet} />
+          <PrivateRoute path="/search" exact component={Search} />
+          <PrivateRoute path="/user/:id" exact component={User} />
+          <PrivateRoute path="/tweet/:id" exact component={Tweeet} />
         </Switch>
       </BrowserRouter>
     </ApolloProvider>
-  )
+  );
 }
 
-export default App
+export default App;

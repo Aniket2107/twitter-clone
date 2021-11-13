@@ -1,0 +1,105 @@
+.tweet {
+  width: 80%;
+  height: auto;
+  padding: 10px 10px 0 10px;
+  margin: 10px 0 10px 0;
+  border: 1px solid #e1e8ed;
+  display: flex;
+
+  position: relative;
+  background-color: white;
+
+  border-radius: 10px;
+}
+
+.tweet_avatar {
+  border-radius: 50%;
+  max-width: 40px;
+  max-height: 40px;
+  border: 1px solid grey;
+}
+
+.tweet_container {
+  margin-left: 15px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.tweet_container h4 {
+  display: inline;
+}
+
+.tweet_container_1 span {
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
+
+.tweet_img {
+  display: block;
+  max-width: 90%;
+  max-height: 73%;
+  object-fit: contain;
+}
+
+.tweet_stats {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.addSpace {
+  margin-bottom: 65px;
+}
+
+.tweet_likes {
+  margin-right: 30px;
+}
+
+.liked {
+  color: red;
+}
+
+.tweet_likes span,
+.tweet_comments span {
+  margin-left: 5px;
+}
+
+.tweet_usercomment {
+  position: absolute;
+  bottom: 0;
+  margin: 15px;
+  margin-left: 0;
+  width: 80%;
+}
+
+.tweet_usercomment input {
+  width: 80%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid grey;
+  padding: 6px;
+}
+
+.tweet_usercomment span {
+  color: #047aed;
+  margin: 5px;
+  padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+@media all and (max-width: 480px) {
+  .tweet {
+    width: 95%;
+  }
+
+  .tweet_container_1 span {
+    font-size: 12px;
+  }
+
+  .tweet_usercomment span {
+    margin-left: 70%;
+  }
+}

@@ -1,0 +1,18 @@
+.likedTweets {
+  margin-left: 240px;
+  max-width: 55%;
+  margin-top: 55px;
+}
+
+@media (max-width: 768px) {
+  .likedTweets {
+    margin-left: 60px;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .likedTweets {
+    margin-left: 50px;
+    max-width: 80%;
+  }
+}

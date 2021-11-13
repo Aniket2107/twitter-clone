@@ -1,0 +1,81 @@
+/* Tweeet Page */
+.tweeet {
+  margin-left: 240px;
+  max-width: 55%;
+  margin-top: 55px;
+}
+
+.tweeet_comment {
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+  max-height: 70px;
+  padding-bottom: 5px;
+  width: 90%;
+
+  border-bottom: 0.5px solid lightgrey;
+}
+
+.tweeet_heading {
+  font-size: 20px;
+}
+
+.tweeet_avatar {
+  max-width: 35px;
+  max-height: 35px;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
+
+.tweeet_comment div {
+  margin-top: 5px;
+  margin-left: 15px;
+}
+
+.tweeet_comment p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.tweeet_comment_date {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .tweeet {
+    margin-left: 60px;
+    height: 100%;
+    margin-bottom: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tweeet {
+    max-width: 80vw;
+    margin-left: 50px;
+    margin-bottom: 60px;
+  }
+
+  .tweeet_heading {
+    font-size: 15px;
+  }
+
+  .tweeet_avatar {
+    max-height: 30px;
+    max-width: 30px;
+  }
+
+  .tweeet_comment div {
+    margin-left: 5px;
+  }
+
+  .tweeet_comment_date {
+    display: none;
+  }
+}

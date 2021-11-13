@@ -9,7 +9,7 @@ export const typeDefs = gql`
     createTweet(data: Content): Tweet
     likeTweet(data: TweetId): LikedTweet
     deleteLike(data: LikedId): LikedTweet
-    addComment(tweetId: Int, data: Content): Comment
+    addComment(tweetId: Int, data: CommentContent): Comment
     addReply(tweetId: Int, commentId: Int, data: Content): Comment
     follow(data: Follow): Following
     unFollow(followId: Int): Following
@@ -118,6 +118,10 @@ export const typeDefs = gql`
   input Content {
     content: String
     img: String
+  }
+
+  input CommentContent {
+    content: String
   }
 
   input TweetId {

@@ -1,0 +1,73 @@
+.search_screen {
+  margin-left: 240px;
+  max-width: 50%;
+  margin-top: 55px;
+  background-color: #fff;
+  height: 90vh;
+}
+
+.search_header {
+  padding-top: 15px;
+  text-align: center;
+}
+
+.search_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.search_ipnut {
+  width: 80%;
+  padding: 10px;
+}
+
+.search_icon {
+  position: absolute;
+  right: 0;
+  margin-right: 70px;
+}
+
+.user_container {
+  margin: 30px;
+  display: flex;
+  padding: 15px;
+  height: 60px;
+  border: 1px solid #ece6e6;
+  cursor: pointer;
+}
+
+.search_user_avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
+
+.user_container-right p {
+  margin-top: 0;
+  margin-left: 15px;
+}
+
+@media (max-width: 768px) {
+  .search_screen {
+    margin-left: 60px;
+    height: 100%;
+    margin-bottom: 450px;
+    height: 50vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .search_screen {
+    max-width: 90vw;
+    margin-left: 50px;
+    margin-bottom: 60px;
+    height: 80vh;
+  }
+
+  .search_icon {
+    margin-right: 40px;
+  }
+}

@@ -1,0 +1,21 @@
+.home {
+  margin-left: 240px;
+  max-width: 55%;
+  margin-top: 55px;
+}
+
+@media (max-width: 768px) {
+  .home {
+    margin-left: 60px;
+    height: 100%;
+    margin-bottom: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home {
+    max-width: 80vw;
+    margin-left: 50px;
+    margin-bottom: 60px;
+  }
+}

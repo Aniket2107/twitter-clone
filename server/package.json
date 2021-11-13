@@ -1,7 +1,7 @@
 {
   "name": "typescript-graphql",
   "scripts": {
-    "start": "ts-node src/server",
+    "start": "ts-node-dev src/server",
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server",
     "seed": "ts-node prisma/seed"
   },

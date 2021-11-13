@@ -1,0 +1,25 @@
+.trending {
+  margin: 0;
+  /* background-color: #fff; */
+  position: fixed;
+  right: 0;
+  width: 400px;
+  overflow-y: scroll;
+  height: 90vh;
+}
+
+.trending h3 {
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .trending {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .trending {
+    width: 300px;
+  }
+}

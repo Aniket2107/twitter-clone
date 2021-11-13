@@ -1,0 +1,41 @@
+.createProfile {
+  margin-left: 30%;
+}
+
+.up_right {
+  margin-right: 50px;
+}
+
+.up_form-control {
+  margin-bottom: 10px;
+}
+
+.up_form-control label {
+  display: block;
+}
+
+.up_form-control input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  border-bottom: 1px solid grey;
+}
+
+.up_form-control input:focus {
+  background-color: #d4f1f4;
+}
+
+.up_button {
+  border: none;
+  outline: none;
+  background-color: #047aed;
+  color: #fff;
+  padding: 5px;
+}
+
+.up_button:hover {
+  outline: 1px solid #047aed;
+  background-color: #fff;
+  color: #047aed;
+  cursor: pointer;
+}
