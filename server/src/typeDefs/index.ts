@@ -5,6 +5,8 @@ export const typeDefs = gql`
     signupUser(data: UserCreateInput!): AuthOutput
     login(data: loginInput!): AuthOutput
     createProfile(data: ProfileInp): Profile
+    deleteTweet(tweetId: Int): Tweet
+    updateTweet(tweetId: Int, content: String): Tweet
     updateProfile(profileId: Int, data: ProfileInp): Profile
     createTweet(data: Content): Tweet
     likeTweet(data: TweetId): LikedTweet

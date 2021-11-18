@@ -11,9 +11,10 @@ interface IProps {
 
 const Landing: React.FC<IProps> = ({ history }) => {
   useEffect(() => {
+    fetch(process.env.REACT_APP_BACKEND_URL!);
+
     if (isAuthenticated()) {
       history.push("/home");
-      // return <Redirect to="/home" />
     }
   }, [history]);
 

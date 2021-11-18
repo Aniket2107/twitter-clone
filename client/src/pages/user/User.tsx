@@ -184,6 +184,18 @@ const User = () => {
         <div className="profile_info">
           <h3>{data.userById.name}</h3>
           <p>{data.userById.profile?.bio || "Bio"}</p>
+          {data.userById.profile?.location && (
+            <>
+              <i
+                className="fa fa-map-marker"
+                aria-hidden="true"
+                style={{ color: "#333" }}
+              ></i>
+              <p style={{ display: "inline" }}>
+                {data.userById.profile?.location}
+              </p>
+            </>
+          )}
           {data.userById.profile?.website && (
             <>
               <i className="fas fa-link" style={{ fontSize: "12px" }}>

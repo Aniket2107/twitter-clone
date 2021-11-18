@@ -54,7 +54,7 @@ export default {
 
       return result
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   allUsers: async (parent, args, context: Context) => {
@@ -92,7 +92,7 @@ export default {
 
       return result
     } catch (error) {
-      throw new Error('Seomthing went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   tweets: async (parent, args, context: Context) => {
@@ -111,7 +111,7 @@ export default {
 
       return result
     } catch (error) {
-      throw new Error('Seomthing went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   getTweetsByUser: async (parent, args, context: Context) => {
@@ -170,7 +170,7 @@ export default {
 
       return tweets
     } catch (error) {
-      throw new Error('Seomthing went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   tweet: async (parent, args: { tweetId: number }, context: Context) => {
@@ -258,7 +258,7 @@ export default {
 
       return following
     } catch (error) {
-      throw new Error('Seomthing went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
 }

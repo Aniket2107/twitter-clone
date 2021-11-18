@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { formatDistance, subDays } from "date-fns";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import { LIKED_TWEETS, TWEETS_QUERY } from "../../pages/home/Home";
 import { Tw } from "../../pages/likedtweet/LikedTweet";
 import { TweetType } from "../trendtweet/TrendTweet";
@@ -13,7 +14,7 @@ interface IProps {
   usersliked: [Tw];
 }
 
-const LIKE_TWEET_MUTATION = gql`
+export const LIKE_TWEET_MUTATION = gql`
   mutation likeTweet($data: TweetId) {
     likeTweet(data: $data) {
       id
@@ -21,7 +22,7 @@ const LIKE_TWEET_MUTATION = gql`
   }
 `;
 
-const DELETE_LIKE_MUTATION = gql`
+export const DELETE_LIKE_MUTATION = gql`
   mutation deleteLike($data: LikedId) {
     deleteLike(data: $data) {
       id
@@ -29,7 +30,7 @@ const DELETE_LIKE_MUTATION = gql`
   }
 `;
 
-const CREATE_COMMENT_MUTATION = gql`
+export const CREATE_COMMENT_MUTATION = gql`
   mutation addComment($data: CommentContent, $tweetId: Int!) {
     addComment(data: $data, tweetId: $tweetId) {
       content
@@ -73,7 +74,7 @@ const Tweet: React.FC<IProps> = ({ tweet, usersliked }) => {
       });
     } catch (error) {
       console.log(error);
-      alert("Something went wrong, Try again ");
+      toast.error("Something went wrong, Try again");
     }
 
     setLikeLoading(false);
@@ -91,13 +92,19 @@ const Tweet: React.FC<IProps> = ({ tweet, usersliked }) => {
         },
       });
     } catch (error) {
-      alert("Something went wrong, Try again");
+      toast.error("Something went wrong, Try again");
     }
 
     setLikeLoading(false);
   };
 
   const handleAddComment = async () => {
+    if (commentContent.length < 1) {
+      // alert("Invalid values");
+      toast.error("Comment cannot be empty");
+      return <ToastContainer />;
+    }
+
     setCommentLoading(true);
 
     try {
@@ -111,9 +118,12 @@ const Tweet: React.FC<IProps> = ({ tweet, usersliked }) => {
       });
 
       setCommentContent("");
+      toast.success("Comment added");
+      // return <ToastContainer />
     } catch (error) {
       console.log(error);
-      alert("Something went wrong, Try again");
+
+      toast.error("Something went wrong, Try again");
     }
 
     setCommentLoading(false);
@@ -134,31 +144,39 @@ const Tweet: React.FC<IProps> = ({ tweet, usersliked }) => {
           />
         </Link>
       ) : (
-        <i className="fa fa-user fa-2x tweet_avatar" aria-hidden="true"></i>
+        <i
+          className="fa fa-user fa-2x tweet_avatar"
+          aria-hidden="true"
+          style={{ border: "none" }}
+        ></i>
       )}
 
       <div className="tweet_container">
         <div className="tweet_container_1">
-          <h4>{tweet.author.name}</h4>
+          <Link to={`/user/${tweet.author.id}`} className="td-n c-000">
+            <h4>{tweet.author.name}</h4>
+          </Link>
           <span>
             {formatDistance(subDays(new Date(tweet.createdAt), 0), new Date())}{" "}
             ago
           </span>
         </div>
 
-        <p onClick={linkTweet}>
-          {tweet.content ||
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae,impedit."}
-        </p>
+        <abbr title="Click to know more" className="td-n">
+          <p onClick={linkTweet} style={{ cursor: "default" }}>
+            {tweet.content ||
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae,impedit."}
+          </p>
 
-        {tweet.img && (
-          <img
-            src={tweet.img}
-            alt="Tweet-img"
-            className="tweet_img"
-            onClick={linkTweet}
-          />
-        )}
+          {tweet.img && (
+            <img
+              src={tweet.img}
+              alt="Tweet-img"
+              className="tweet_img"
+              onClick={linkTweet}
+            />
+          )}
+        </abbr>
 
         <div className={`tweet_stats ${toggleComment ? "addSpace" : ""} `}>
           <div className="tweet_likes">

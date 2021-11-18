@@ -18,6 +18,8 @@ export default {
     createProfile: Mutation.createProfile,
     updateProfile: Mutation.updateProfile,
     createTweet: Mutation.createTweet,
+    updateTweet: Mutation.updateTweet,
+    deleteTweet: Mutation.deleteTweet,
     likeTweet: Mutation.likeTweet,
     deleteLike: Mutation.deleteLike,
     addComment: Mutation.addComment,

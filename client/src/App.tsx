@@ -21,8 +21,12 @@ import User from "./pages/user/User";
 import Tweeet from "./pages/tweeet/Tweeet";
 import Search from "./pages/search/Search";
 
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_BACKEND_URL,
+  uri: "http://localhost:4000/",
 });
 const authLink = setContext(async (req, { headers }) => {
   const token = await localStorage.getItem("twitter-token");
@@ -39,6 +43,14 @@ const link = authLink.concat(httpLink as any);
 const client = new ApolloClient({
   link: link as any,
   cache: new InMemoryCache(),
+});
+
+toast.configure({
+  position: "top-right",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: false,
 });
 
 function App() {

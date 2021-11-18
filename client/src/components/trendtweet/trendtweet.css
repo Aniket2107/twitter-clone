@@ -6,6 +6,7 @@
   padding: 5px;
 
   border-radius: 10px;
+  position: relative;
 }
 
 .trendtweet_container {
@@ -32,4 +33,22 @@
   display: flex;
   margin-left: 70px;
   margin-top: 5px;
+}
+
+.trendtweet_update {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  margin: 10px;
+}
+
+.trendtweet_update i {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.trend__tweet__editBtn {
+  padding: 10px;
+  margin-left: 15px;
 }

@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import { isAuthenticated } from "../../helpers";
 
 import "./login.css";
@@ -58,15 +59,20 @@ function Login() {
       history.push("/home");
 
       setLoading(false);
+
+      toast.success("Login Success");
+      return <ToastContainer />;
     } catch (err: any) {
       setLoading(false);
 
-      console.log(err);
+      // console.log(err);
 
       const msg = err
         ? err?.graphQLErrors[0].message
         : "Something went wrong, Try again";
-      alert(msg);
+
+      toast.error(msg);
+      return <ToastContainer />;
     }
   };
 
@@ -75,6 +81,48 @@ function Login() {
       ...values,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleGuestLogin = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await login({
+        variables: {
+          data: {
+            email: "aniket@email.com",
+            password: "123456",
+          },
+        },
+      });
+
+      localStorage.setItem("twitter-token", response.data.login.token);
+      localStorage.setItem(
+        "twitter-user",
+        JSON.stringify(response.data.login.user)
+      );
+      history.push("/home");
+
+      setLoading(false);
+
+      toast.success("Login Success");
+      return <ToastContainer />;
+    } catch (err: any) {
+      setLoading(false);
+
+      // console.log(err);
+
+      const msg = err
+        ? err?.graphQLErrors[0].message
+        : "Something went wrong, Try again";
+      // alert(msg);
+
+      toast.error(msg);
+      return <ToastContainer />;
+    }
   };
 
   return (
@@ -129,8 +177,17 @@ function Login() {
               required
             />
           </div>
-          <button className="login_btn" type="submit">
+          <button className="login_btn" type="submit" disabled={loading}>
             {loading ? "Loading..." : "LOGIN"}
+          </button>
+          <br />
+          <br />
+          <button
+            className="login_btn"
+            onClick={handleGuestLogin}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "GUEST LOGIN"}
           </button>
 
           <Link

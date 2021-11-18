@@ -47,6 +47,29 @@
   font-size: 13px;
 }
 
+.tweeet_usercomment {
+  display: block;
+  margin: 15px;
+  margin-left: 0;
+  width: 80%;
+}
+
+.tweeet_usercomment input {
+  width: 80%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid grey;
+  padding: 6px;
+}
+
+.tweeet_usercomment span {
+  color: #047aed;
+  margin: 5px;
+  padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .tweeet {
     margin-left: 60px;

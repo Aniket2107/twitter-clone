@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { toast, ToastContainer } from "react-toastify";
 import { ME_QUERY } from "../../pages/profile/Profile";
 import { customStyles } from "./modalStyle";
 
@@ -64,14 +65,13 @@ const CreateProfile = () => {
         },
       });
 
-      //   console.log(response)
-
-      alert("Profile created!");
       setIsOpen(false);
+      toast.success("Profile created");
+      return <ToastContainer />;
     } catch (err) {
       console.log(err);
 
-      alert("Something went wrong, Try again");
+      toast.error("Something went wrong, Try again");
       setIsOpen(false);
     }
   };
@@ -124,7 +124,7 @@ const CreateProfile = () => {
               />
             </div>
             <button type="submit" className="up_button" onClick={handleSubmit}>
-              Update Profile
+              Create Profile
             </button>
           </form>
         </div>

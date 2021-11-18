@@ -9,6 +9,8 @@ function Navbar() {
     localStorage.removeItem("twitter-token");
     localStorage.removeItem("twitter-user");
     history.push("/");
+
+    window.location.reload();
   };
 
   return (

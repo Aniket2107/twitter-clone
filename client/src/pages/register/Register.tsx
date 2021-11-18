@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import { isAuthenticated } from "../../helpers";
 
 import "../login/login.css";
@@ -55,13 +56,18 @@ function Register() {
         JSON.stringify(response.data.signupUser.user)
       );
       history.push("/home");
+
+      toast.success("Register successful");
+      return <ToastContainer />;
     } catch (err: any) {
       setLoading(false);
 
       const msg = err
         ? err?.graphQLErrors[0]?.message
         : "Something went wrong, Try again";
-      alert(msg);
+      toast.error(msg);
+
+      return <ToastContainer />;
     }
   };
 
@@ -135,7 +141,7 @@ function Register() {
               required
             />
           </div>
-          <button className="login_btn" type="submit">
+          <button className="login_btn" type="submit" disabled={loading}>
             {loading ? "Loading..." : "Register"}
           </button>
 

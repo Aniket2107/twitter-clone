@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import ALoader from "../../components/Loader";
 import CreateProfile from "../../components/profile/CreateProfile";
 import UpdateProfile from "../../components/profile/UpdateProfile";
 import TrendTweet, { TweetType } from "../../components/trendtweet/TrendTweet";
@@ -84,7 +85,23 @@ function Profile() {
   const { data: fData } = useQuery(FOLLOWERS);
 
   if (loading || error) {
-    return <div className="lds-dual-ring">Loading...</div>;
+    return (
+      <div className="alignHomeLoader">
+        <ALoader />
+      </div>
+    );
+  }
+
+  if (data.me.profile?.avatar) {
+    localStorage.setItem(
+      "twitter-user",
+      JSON.stringify({
+        name: data.me.name,
+        profile: {
+          avatar: data.me.profile.avatar,
+        },
+      })
+    );
   }
 
   return (
@@ -103,8 +120,23 @@ function Profile() {
         <div className="profile_info">
           <h3>{data.me.name}</h3>
           <p>{data.me.profile?.bio || "Bio"}</p>
+          {data.me.profile?.location && (
+            <>
+              <i
+                className="fa fa-map-marker"
+                aria-hidden="true"
+                style={{ color: "#333" }}
+              ></i>
+              <p style={{ display: "inline" }}>{data.me.profile?.location}</p>
+            </>
+          )}
           {data.me.profile?.website && (
-            <a href={data.me.profile?.website}>{data.me.profile?.website}</a>
+            <>
+              <br />
+              <br />
+              <i className="fas fa-link" style={{ fontSize: "12px" }}></i>
+              <a href={data.me.profile?.website}>{data.me.profile?.website}</a>
+            </>
           )}
         </div>
 
@@ -137,7 +169,7 @@ function Profile() {
         <h3 style={{ textAlign: "center" }}>User's Tweet</h3>
         {data.me.tweets &&
           data.me.tweets?.map((tweet: TweetType) => {
-            return <TrendTweet tweet={tweet} key={tweet.id} />;
+            return <TrendTweet tweet={tweet} key={tweet.id} update={true} />;
           })}
       </div>
     </div>

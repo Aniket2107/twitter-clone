@@ -2,6 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 import { ME_QUERY } from "../../pages/profile/Profile";
 import { customStyles } from "./modalStyle";
 
@@ -44,15 +45,15 @@ const UpdateProfile = () => {
   useEffect(() => {
     if (data) {
       setValues({
-        id: data.me.profile.id,
-        bio: data.me.profile.bio,
-        location: data.me.profile.location,
-        website: data.me.profile.website,
-        avatar: data.me.profile.avatar,
+        id: data.me.profile?.id,
+        bio: data.me.profile?.bio,
+        location: data.me.profile?.location,
+        website: data.me.profile?.website,
+        avatar: data.me.profile?.avatar,
       });
     }
 
-    if (data.me.profile.avatar) {
+    if (data.me.profile?.avatar) {
       setImage(data.me.profile.avatar);
     }
   }, [data]);
@@ -102,20 +103,13 @@ const UpdateProfile = () => {
           profileId: values?.id,
         },
       });
+
+      toast.success("Profile updated");
     } catch (error) {
-      alert("Something went wrong, Try again");
+      toast.error("Something went wrong, Try again");
     }
 
     setIsOpen(false);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name && e.target.value) {
-      setValues({
-        ...values,
-        [e.target.name]: e.target.value,
-      });
-    }
   };
 
   return (
@@ -174,8 +168,7 @@ const UpdateProfile = () => {
                 id="up_bio"
                 name="bio"
                 value={values?.bio}
-                onChange={handleChange}
-                required
+                onChange={(e) => setValues({ ...values, bio: e.target.value })}
               />
             </div>
             <div className="up_form-control">
@@ -185,8 +178,9 @@ const UpdateProfile = () => {
                 id="up_location"
                 value={values?.location}
                 name="location"
-                onChange={handleChange}
-                required
+                onChange={(e) =>
+                  setValues({ ...values, location: e.target.value })
+                }
               />
             </div>
             <div className="up_form-control">
@@ -196,8 +190,9 @@ const UpdateProfile = () => {
                 id="up_website"
                 value={values?.website}
                 name="website"
-                onChange={handleChange}
-                required
+                onChange={(e) =>
+                  setValues({ ...values, website: e.target.value })
+                }
               />
             </div>
             <button type="submit" className="up_button" onClick={handleSubmit}>

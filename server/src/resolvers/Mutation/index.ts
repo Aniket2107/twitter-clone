@@ -26,7 +26,7 @@ export default {
         user,
       }
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   login: async (parent, args: { data: loginInput }, context: Context) => {
@@ -54,7 +54,8 @@ export default {
         user: user,
       }
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      // console.log(error)
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   createProfile: async (
@@ -85,7 +86,7 @@ export default {
       return profile
     } catch (error) {
       // console.log(error)
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   updateProfile: async (
@@ -111,7 +112,7 @@ export default {
 
       return updatedProfile
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   createTweet: async (
@@ -138,8 +139,76 @@ export default {
         },
       })
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
+  },
+  deleteTweet: async (parent, args, context: Context) => {
+    const userId = getUserId(context)
+
+    const delTweet = await context.prisma.tweet.findUnique({
+      where: {
+        id: Number(args.tweetId),
+      },
+    })
+
+    if (!delTweet?.authorId) {
+      throw new Error('Sorry the post doesnot exists')
+    }
+
+    if (Number(delTweet?.authorId) !== Number(userId)) {
+      throw new Error('You are not authorised ')
+    }
+
+    await context.prisma.likedTweet.deleteMany({
+      where: {
+        tweetId: Number(args.tweetId),
+      },
+    })
+
+    await context.prisma.comment.deleteMany({
+      where: {
+        tweetId: Number(args.tweetId),
+      },
+    })
+    const tweet = await context.prisma.tweet.delete({
+      where: {
+        id: Number(args.tweetId),
+      },
+    })
+
+    return tweet
+  },
+  updateTweet: async (
+    parent,
+    args: { tweetId: number; content: string },
+    context: Context,
+  ) => {
+    const userId = getUserId(context)
+
+    const upTweet = await context.prisma.tweet.findUnique({
+      where: {
+        id: Number(args.tweetId),
+      },
+    })
+
+    if (!upTweet?.authorId) {
+      throw new Error('Sorry the post doesnot exists')
+    }
+
+    if (Number(upTweet?.authorId) !== Number(userId)) {
+      throw new Error('You are not authorised ')
+    }
+
+    const tweet = await context.prisma.tweet.update({
+      data: {
+        content: args.content,
+      },
+      where: {
+        id: Number(args.tweetId),
+      },
+    })
+
+    return tweet
   },
   likeTweet: async (
     parent,
@@ -170,7 +239,7 @@ export default {
 
       return like
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   deleteLike: async (
@@ -191,7 +260,7 @@ export default {
 
       return dislike
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   addComment: async (
@@ -224,7 +293,7 @@ export default {
 
       return comment
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
   addReply: async (
@@ -260,7 +329,7 @@ export default {
         },
       })
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
 
@@ -285,8 +354,8 @@ export default {
         },
       })
     } catch (error) {
-      console.log(error)
-      throw new Error('Something went wrong, Try again')
+      // console.log(error)
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
 
@@ -302,7 +371,7 @@ export default {
         where: { id: args.followId },
       })
     } catch (error) {
-      throw new Error('Something went wrong, Try again')
+      throw new Error(error ? String(error) : 'Something went wrong, Try again')
     }
   },
 }

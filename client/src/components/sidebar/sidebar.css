@@ -18,6 +18,12 @@
   cursor: pointer;
 }
 
+.sidebar__active {
+  background-color: #047aed;
+  border-radius: 15px;
+  color: white;
+}
+
 .sidebar__items:hover {
   background-color: #047aed;
   border-radius: 15px;
@@ -26,14 +32,6 @@
 
 .sidebar__items span {
   margin-left: 10px;
-}
-
-/* .sidebar_logout {
-  cursor: pointer;
-} */
-
-.sidebar_logout:hover {
-  background-color: red;
 }
 
 @media (max-width: 768px) {

@@ -4,6 +4,12 @@
   margin-top: 55px;
 }
 
+.alignHomeLoader {
+  position: absolute;
+  left: 30%;
+  top: 40%;
+}
+
 @media (max-width: 768px) {
   .home {
     margin-left: 60px;

@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import ALoader from "../../components/Loader";
 import { ME_QUERY } from "../profile/Profile";
 
 import "./following.css";
@@ -33,24 +35,15 @@ const FollowingList: React.FC<IProps> = ({ user }) => {
   );
 };
 
-type FOLLOWDATA = [FdUserType];
-
 function Following() {
-  const [followingData, setFollowingData] = useState<FOLLOWDATA | null>();
   const { loading, error, data } = useQuery(ME_QUERY);
 
-  useEffect(() => {
-    if (data) {
-      setFollowingData(data.me.following);
-    }
-
-    return () => {
-      setFollowingData(null);
-    };
-  }, [data]);
-
-  if (loading || error || !setFollowingData) {
-    return <div className="lds-dual-ring">Loading</div>;
+  if (loading || error) {
+    return (
+      <div className="alignHomeLoader">
+        <ALoader />
+      </div>
+    );
   }
 
   return (
@@ -58,10 +51,17 @@ function Following() {
       <h3>Following</h3>
 
       <div className="following_container">
-        {followingData?.length ? (
-          followingData?.map((user: FdUserType) => {
-            // console.log("user", user);
-            return <FollowingList user={user} key={user.id} />;
+        {data.me.following?.length ? (
+          data.me.following?.map((user: FdUserType) => {
+            return (
+              <Link
+                to={`/user/${user.followId}`}
+                className="td-n c-000"
+                key={user.id}
+              >
+                <FollowingList user={user} />
+              </Link>
+            );
           })
         ) : (
           <h5>You donot follow anyone ;(</h5>

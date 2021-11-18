@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ALoader from "../../components/Loader";
 import "./search.css";
 
 export const ALL_USERS = gql`
@@ -33,7 +34,11 @@ const Search = () => {
   const { loading, error, data } = useQuery(ALL_USERS);
 
   if (loading || error) {
-    return <div>Loading...</div>;
+    return (
+      <div className="alignHomeLoader">
+        <ALoader />
+      </div>
+    );
   }
 
   let filteredUsers: Array<UserType> = [];
@@ -60,31 +65,36 @@ const Search = () => {
       </div>
 
       <div className="search_users">
-        {filteredUsers?.map((user) => {
-          return (
-            <Link
-              to={`/user/${user.id}`}
-              style={{ textDecoration: "none", color: "#333" }}
-            >
-              <div className="user_container">
-                {user.profile?.avatar ? (
-                  <img
-                    src={user.profile.avatar}
-                    alt="avatar"
-                    className="search_user_avatar"
-                  />
-                ) : (
-                  <img src="" alt="avatar" />
-                )}
+        {filteredUsers.length > 0 &&
+          filteredUsers?.map((user) => {
+            return (
+              <Link
+                to={`/user/${user.id}`}
+                style={{ textDecoration: "none", color: "#333" }}
+              >
+                <div className="user_container">
+                  {user.profile?.avatar ? (
+                    <img
+                      src={user.profile.avatar}
+                      alt="avatar"
+                      className="search_user_avatar"
+                    />
+                  ) : (
+                    <img src="" alt="avatar" />
+                  )}
 
-                <div className="user_container-right">
-                  <p>{user.name}</p>
-                  {user.profile?.bio && <p>{user.profile.bio}</p>}
+                  <div className="user_container-right">
+                    <p>{user.name}</p>
+                    {user.profile?.bio && <p>{user.profile.bio}</p>}
+                  </div>
                 </div>
-              </div>
-            </Link>
-          );
-        })}
+              </Link>
+            );
+          })}
+
+        {searchQuery.length !== 0 && filteredUsers.length < 1 && (
+          <p style={{ marginLeft: "40%", color: "red" }}>Sorry no user found</p>
+        )}
       </div>
     </div>
   );

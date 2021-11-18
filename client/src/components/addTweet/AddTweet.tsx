@@ -1,6 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 import { useRef, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { TWEETS_QUERY } from "../../pages/home/Home";
+import { ME_QUERY } from "../../pages/profile/Profile";
 import "./addtweet.css";
 
 export const ADD_TWEET_MUTATION = gql`
@@ -22,10 +24,15 @@ function AddTweet() {
       {
         query: TWEETS_QUERY,
       },
+      {
+        query: ME_QUERY,
+      },
     ],
   });
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    toast.info("Uploading image...");
+
     const files = e.target.files!;
     const data = new FormData();
     data.append("file", files[0]);
@@ -40,7 +47,7 @@ function AddTweet() {
     });
     const file = await res.json();
 
-    console.log(file);
+    // console.log(file);
 
     setImage(file.secure_url);
     setImageLoading(false);
@@ -50,6 +57,12 @@ function AddTweet() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
+    if (tweet.length < 1) {
+      // alert("Please enter something ;)");
+      toast.error("Tweet cannot be empty");
+      return <ToastContainer />;
+    }
 
     try {
       await createTweet({
@@ -63,6 +76,7 @@ function AddTweet() {
 
       setTweet("");
       setImage("");
+      toast.success("Tweet posted sucessfully ;)");
     } catch (error) {
       console.log(error);
       alert("Something went wrong, Try again");
@@ -77,8 +91,8 @@ function AddTweet() {
         <div className="addtweet_head">
           {user?.profile?.avatar ? (
             <img
-              src="https://res.cloudinary.com/aniketcodes/image/upload/v1631960498/rkdw4zxi6cqt1vvbfrym.png"
-              alt=""
+              src={user.profile?.avatar}
+              alt="avatar"
               className="addtweet_avatar"
             />
           ) : (
@@ -100,7 +114,7 @@ function AddTweet() {
         </div>
 
         <div className="addtweet_img">
-          <label htmlFor="file-input">
+          <label htmlFor="file-input" style={{ cursor: "pointer" }}>
             <i className="fas fa-image "></i>
           </label>
           <input
@@ -113,9 +127,23 @@ function AddTweet() {
             style={{ display: "none" }}
           />
 
-          {imageLoading && <i className="fas fa-cog fa-spin"></i>}
+          {imageLoading && <i className="fas fa-cog fa-spin ml-3"></i>}
+          {image && (
+            <a
+              href={image}
+              target="_blank"
+              className="cp td-n ml-3"
+              rel="noreferrer"
+            >
+              img
+            </a>
+          )}
         </div>
-        <button className="addtweet_btn" onClick={handleSubmit}>
+        <button
+          className="addtweet_btn"
+          onClick={handleSubmit}
+          disabled={imageLoading || tweet.length < 2}
+        >
           <span>Tweet</span>
         </button>
       </form>
